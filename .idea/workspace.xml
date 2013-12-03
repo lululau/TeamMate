@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4947d04f-3cd9-47ef-8362-ccc2e3064cde" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/migrate/20131203144747_create_join_table_managers_projects.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/migrate/20131203145234_create_join_table_members_projects.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/migrate/20131203145446_create_join_table_tasks_watchers.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/migrate/20131203145638_create_join_table_contributors_wikis.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/wiki.rb" afterPath="$PROJECT_DIR$/app/models/wiki.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TeamMate.iws" />
@@ -41,10 +38,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="wiki.rb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="wiki.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/models/wiki.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="72" selection-start="270" selection-end="270" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="216">
+            <state line="1" column="72" selection-start="104" selection-end="104" vertical-scroll-proportion="0.024930747" vertical-offset="0" max-vertical-offset="722">
               <folding />
             </state>
           </provider>
@@ -59,10 +56,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="20131203145638_create_join_table_contributors_wikis.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="20131203145638_create_join_table_contributors_wikis.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/db/migrate/20131203145638_create_join_table_contributors_wikis.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="79" selection-start="157" selection-end="157" vertical-scroll-proportion="0.049861494" vertical-offset="0" max-vertical-offset="722">
+            <state line="2" column="79" selection-start="157" selection-end="157" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252">
               <folding />
             </state>
           </provider>
@@ -151,12 +148,12 @@
         <option value="$PROJECT_DIR$/app/models/task.rb" />
         <option value="$PROJECT_DIR$/app/models/task_journal.rb" />
         <option value="$PROJECT_DIR$/app/models/wikis.rb" />
-        <option value="$PROJECT_DIR$/app/models/wiki.rb" />
         <option value="$PROJECT_DIR$/app/models/user.rb" />
         <option value="$PROJECT_DIR$/db/migrate/20131203144747_create_join_table_managers_projects.rb" />
         <option value="$PROJECT_DIR$/db/migrate/20131203145234_create_join_table_members_projects.rb" />
         <option value="$PROJECT_DIR$/db/migrate/20131203145446_create_join_table_tasks_watchers.rb" />
         <option value="$PROJECT_DIR$/db/migrate/20131203145638_create_join_table_contributors_wikis.rb" />
+        <option value="$PROJECT_DIR$/app/models/wiki.rb" />
       </list>
     </option>
   </component>
@@ -535,15 +532,19 @@
       <created>1386081994375</created>
       <updated>1386081994375</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="create join tables&#10;">
+      <created>1386082706312</created>
+      <updated>1386082706312</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32957503" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32957503" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32957503" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -582,7 +583,8 @@
     <MESSAGE value="add Task model and migration" />
     <MESSAGE value="add TaskJournal model and migration&#10;" />
     <MESSAGE value="add Wiki model and migration&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="add Wiki model and migration&#10;" />
+    <MESSAGE value="create join tables&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="create join tables&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -759,13 +761,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/wiki.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="72" selection-start="270" selection-end="270" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="216">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/project.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="42" selection-start="263" selection-end="263" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="216">
@@ -810,7 +805,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/db/migrate/20131203145638_create_join_table_contributors_wikis.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="79" selection-start="157" selection-end="157" vertical-scroll-proportion="0.049861494" vertical-offset="0" max-vertical-offset="722">
+        <state line="2" column="79" selection-start="157" selection-end="157" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/wiki.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="72" selection-start="104" selection-end="104" vertical-scroll-proportion="0.024930747" vertical-offset="0" max-vertical-offset="722">
           <folding />
         </state>
       </provider>
