@@ -27,3 +27,13 @@ TeamMate::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 end
+
+silence_warnings do
+  begin
+    require 'pry'
+    IRB = Pry
+    module Pry::RailsCommands ;end
+    IRB::ExtendCommandBundle = Pry::RailsCommands
+  rescue LoadError
+  end
+end
