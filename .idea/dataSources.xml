@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="3208856975">
-    <data-source source="LOCAL" name="Rails TeamMate: development" uuid="c49749bd-2e6d-4ada-9c93-de664528d463">
+  <component name="DataSourceManagerImpl" format="xml" hash="2637780138">
+    <data-source source="LOCAL" name="Rails TeamMate: development" uuid="5ba42f2a-1e9d-4486-a721-9de1c380712d">
       <driver-ref>sqlite.xerial</driver-ref>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/development.sqlite3</jdbc-url>
       <libraries />
     </data-source>
-    <data-source source="LOCAL" name="Rails TeamMate: test" uuid="52e3485a-5f29-4826-aa0a-f3b76196ba3d">
+    <data-source source="LOCAL" name="Rails TeamMate: test" uuid="ccf521d4-693f-42b9-b0a5-f372cf019838">
       <driver-ref>sqlite.xerial</driver-ref>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/test.sqlite3</jdbc-url>
       <libraries />
     </data-source>
-    <data-source source="LOCAL" name="Rails TeamMate: production" uuid="d392941d-f206-4201-92e0-f9aafddb189b">
+    <data-source source="LOCAL" name="Rails TeamMate: production" uuid="376d18bd-3cbb-441d-af43-2ba2edf99ecd">
       <driver-ref>sqlite.xerial</driver-ref>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/production.sqlite3</jdbc-url>
