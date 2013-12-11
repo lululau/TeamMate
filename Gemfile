@@ -56,3 +56,10 @@ group :test do
   gem "launchy"
   gem "selenium-webdriver"
 end
+
+gem 'therubyracer'
+gem "less-rails"
+gem "twitter-bootstrap-rails", :github => 'lululau/twitter-bootstrap-rails', :branch => 'bootstrap3'
+gem "simple_form", :github => 'lululau/simple_form', :branch => 'bootstrap3'
+gem 'datetimepicker-rails', :github => 'lululau/datetimepicker-rails'
+gem 'chosen-rails', :github => 'lululau/chosen-rails', :branch => 'bootstrap3'
