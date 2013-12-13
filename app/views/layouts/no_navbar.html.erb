@@ -38,25 +38,8 @@
   </head>
   <body>
 
-
-  <%= nav_bar :fixed => :top, :static => :top, :brand => :TeamMate, :inverse => true do %>
-      <% menu_group :pull => :right do %>
-      <%= drop_down current_user.email do %>
-          <%= menu_item "haha", "haha" %>
-          <%= menu_item "退出", destroy_user_session_path, :method => :delete, :data => {:confirm => '确定退出吗？'} %>
-      <% end %>
-      <% end %>
-  <% end %>
-
     <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <%= bootstrap_flash %>
           <%= yield %>
-        </div>
-
-      </div><!--/row-->
-
       <footer>
         <p>&copy; Company 2013</p>
       </footer>

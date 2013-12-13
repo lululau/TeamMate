@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
   has_and_belongs_to_many :managed_projects, :class_name => 'Project', :join_table => 'managers_projects'
   has_and_belongs_to_many :involved_projects, :class_name => 'Project', :join_table => 'members_projects'
   has_many :tasks, :foreign_key => 'assigned_to_user_id'
