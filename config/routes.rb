@@ -1,5 +1,7 @@
 TeamMate::Application.routes.draw do
 
+  resources :wikis
+
   resources :tasks
 
   devise_for :users, :controllers => {

@@ -1,0 +1,11 @@
+<%= simple_form_for @wiki, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :subject %>
+  <%= f.input :content %>
+  <%= f.input :parent_id %>
+  <%= f.input :project_id %>
+  <%= f.input :author_id %>
+
+  <%= f.button :submit, :class => 'btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                wikis_path, :class => 'btn btn-default' %>
+<% end %>
