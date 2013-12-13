@@ -1,5 +1,7 @@
 TeamMate::Application.routes.draw do
 
+  resources :tasks
+
   devise_for :users, :controllers => {
     :sessions => 'auth/sessions'
   }

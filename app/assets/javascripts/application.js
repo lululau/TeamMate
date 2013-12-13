@@ -19,7 +19,7 @@
 //= require bootstrap-datetimepicker/picker
 //= require chosen-jquery
 
-$(document).on('page:change', function() {
+$(document).on('ready page:change', function() {
    $('.chosen-select').chosen({
        'allow_single_deselect': true,
        'no_results_text': '没有筛选结果',
