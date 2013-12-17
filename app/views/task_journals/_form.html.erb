@@ -1,0 +1,11 @@
+<%= simple_form_for @task_journal, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :time_entry_hours %>
+  <%= f.input :old_done_ratio %>
+  <%= f.input :new_done_ratio %>
+  <%= f.input :task_id %>
+  <%= f.input :operator_id %>
+
+  <%= f.button :submit, :class => 'btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                task_journals_path, :class => 'btn btn-default' %>
+<% end %>

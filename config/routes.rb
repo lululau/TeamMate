@@ -1,5 +1,7 @@
 TeamMate::Application.routes.draw do
 
+  resources :task_journals
+
   resources :wikis
 
   resources :tasks

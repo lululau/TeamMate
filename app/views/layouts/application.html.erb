@@ -41,7 +41,7 @@
 
   <%= nav_bar :fixed => :top, :static => :top, :brand => :TeamMate, :inverse => true do %>
       <% menu_group :pull => :right do %>
-      <%= drop_down current_user.email do %>
+      <%= drop_down current_user.name || current_user.email do %>
           <%= menu_item "haha", "haha" %>
           <%= menu_item "退出", destroy_user_session_path, :method => :delete, :data => {:confirm => '确定退出吗？'} %>
       <% end %>
