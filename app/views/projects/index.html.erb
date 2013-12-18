@@ -1,6 +1,6 @@
 <%- model_class = Project -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+<div class="nav-tabs">
+  <%= render :partial => "common/manage_module_tabs", :locals => {:tab_name => 'projects'} %>
 </div>
 <table class="table table-striped">
   <thead>

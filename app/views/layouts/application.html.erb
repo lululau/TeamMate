@@ -40,23 +40,30 @@
 
   <%= nav_bar :fixed => :top, :static => :top, :brand => :TeamMate, :inverse => true do %>
       <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <div id='top-navbar' class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">选择项目 <b class="caret"></b></a>
+          <li id='nav-selected-project' class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <% if @nav_item_name == 'selected-project' and not cookies[:selected_project].blank? %>
+                  <%= Project.find(cookies[:selected_project]).name %>
+              <% else %>
+                  选择项目
+              <% end %>
+              <b class="caret"></b>
+            </a>
             <ul class="dropdown-menu">
               <% Project.all.each do |p| %>
-              <li><%= link_to p.name, "xxx" %></li>
+              <li id="nav-selected-project-<%= p.id %>"><%= link_to p.name, project_tasks_path(p) %></li>
               <% end %>
             </ul>
           </li>
-          <li class="active"><a href="#">我的工作</a></li>
-          <% if current_user.role == 'admin' %>
-              <li><a href="#">管理</a></li>
+          <li id="nav-my-job"><a href="#">我的工作</a></li>
+          <% if [ 'admin', 'manager'].include? current_user.role %>
+              <li id="nav-management"><%= link_to '管理', projects_path %></li>
           <% end %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
+          <li id="nav-account" class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.name || current_user.email %> <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a href="#">修改个人资料</a></li>
@@ -67,6 +74,14 @@
         </ul>
       </div><!-- /.navbar-collapse -->
   <% end %>
+  <script type="text/javascript">
+    $("#top-navbar li").removeClass('active');
+    var nav_item_name = "<%= @nav_item_name %>";
+    $('#nav-' + nav_item_name).addClass('active');
+    <% if @nav_item_name == 'selected-project' and not cookies[:selected_project].blank? %>
+    $('#nav-selected-project-' + <%= cookies[:selected_project] %>).addClass("active");
+    <% end %>
+  </script>
     <div class="container">
       <div class="row">
         <div class="col-lg-12">

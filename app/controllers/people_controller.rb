@@ -1,6 +1,8 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
 
+  before_action :set_nav_item_name
+
   # GET /people
   # GET /people.json
   def index
@@ -65,6 +67,10 @@ class PeopleController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_person
       @person = Person.find(params[:id])
+    end
+
+    def set_nav_item_name
+      @nav_item_name = 'management'
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

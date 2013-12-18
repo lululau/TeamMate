@@ -1,10 +1,13 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_selected_project_cookie
+  before_action :set_nav_item_name
 
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    @project = Project.find params[:project_id]
+    @tasks = @project.tasks.all
   end
 
   # GET /tasks/1
@@ -70,5 +73,13 @@ class TasksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       params.require(:task).permit(:category, :subject, :description, :priority, :start_date, :due_date, :at_risk, :assigned_to_user_id, :parent_id, :project_id)
+    end
+
+    def set_selected_project_cookie
+      cookies[:selected_project] = params[:project_id]
+    end
+
+    def set_nav_item_name
+      @nav_item_name = 'selected-project'
     end
 end

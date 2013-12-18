@@ -1,0 +1,13 @@
+<ul id="manage-module-tabs" class="nav nav-tabs nav-justified">
+  <li id="tab-projects">
+    <%= link_to '项目管理', projects_path %>
+  </li>
+  <li id="tab-users">
+    <%= link_to '用户管理', people_path %>
+  </li>
+</ul>
+<script type="text/javascript">
+  $('#manage-module-tabs li').removeClass('active');
+  var tab_name = '<%= tab_name %>';
+  $('#tab-' + tab_name).addClass('active')
+</script>

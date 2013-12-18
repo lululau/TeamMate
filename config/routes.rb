@@ -2,18 +2,19 @@ TeamMate::Application.routes.draw do
 
   resources :people
 
-  resources :task_journals
-
-  resources :wikis
-
-  resources :tasks
+  resources :projects do
+    resources :tasks do
+      resources :task_journals
+    end
+    resources :wikis
+  end
 
   devise_for :users, :controllers => {
     :sessions => 'auth/sessions'
   }
+
   root :to => "projects#index"
 
-  resources :projects
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
