@@ -1,0 +1,49 @@
+zh:
+  simple_form:
+    "yes": '是'
+    "no": '否'
+    required:
+      text: '必需'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: "发生了以下错误:"
+
+    #Labels and hints examples
+    labels:
+       defaults:
+         password: '口令'
+         new_done_ratio: '进度'
+         time_entry_hours: '耗时'
+       user:
+         new:
+           email: 'Email.'
+         edit:
+           email: 'Email.'
+       task:
+         category: '分类'
+         subject: '主题'
+         description: '描述'
+         priority: '优先级'
+         assigned_to_user: '指派给'
+         watchers: '跟踪者'
+         parent: '父任务'
+         start_date: '开始日期'
+         due_date: '预期完成日期'
+         at_risk: '存在风险'
+         reason_of_risk: '风险原因'
+
+
+    hints:
+       defaults:
+         username: '用户名'
+         password: 'No special characters, please.'
+
+    options:
+      task:
+        category:
+          bug_fixing: Bug修复
+          new_feature: 新增功能
+          support: 支持

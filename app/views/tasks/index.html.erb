@@ -6,42 +6,42 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:category) %></th>
       <th><%= model_class.human_attribute_name(:subject) %></th>
-      <th><%= model_class.human_attribute_name(:description) %></th>
+      <th><%= model_class.human_attribute_name(:parent) %> ID</th>
+      <th><%= model_class.human_attribute_name(:category) %></th>
       <th><%= model_class.human_attribute_name(:priority) %></th>
-      <th><%= model_class.human_attribute_name(:assigned_to_user_id) %></th>
-      <th><%= model_class.human_attribute_name(:parent_id) %></th>
-      <th><%= model_class.human_attribute_name(:start_date) %></th>
-      <th><%= model_class.human_attribute_name(:due_date) %></th>
+      <th><%= model_class.human_attribute_name(:assigned_to_user) %></th>
+      <th><%= model_class.human_attribute_name(:time_entry_hours) %></th>
+      <th><%= model_class.human_attribute_name(:ratio) %></th>
       <th><%= model_class.human_attribute_name(:at_risk) %></th>
-      <th><%= model_class.human_attribute_name(:reason_of_risk) %></th>
-      <th><%= model_class.human_attribute_name(:project_id) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:updated_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
-        <td><%= link_to task.id, task_path(task) %></td>
-        <td><%= task.category %></td>
-        <td><%= task.subject %></td>
-        <td><%= task.description %></td>
+        <td><%= link_to task.id, [@project, task] %></td>
+        <td><%= link_to task.subject, [@project, task] %></td>
+        <td><%= task.parent.present? ? link_to(task.parent.id, [@project, task.parent]) : "" %></td>
+        <td><%= t task.category, :scope => 'simple_form.options.task.category' %></td>
         <td><%= task.priority %></td>
-        <td><%= task.assigned_to_user_id %></td>
-        <td><%= task.parent_id %></td>
-        <td><%= task.start_date %></td>
-        <td><%= task.due_date %></td>
-        <td><%= task.at_risk %></td>
-        <td><%= task.reason_of_risk %></td>
-        <td><%= task.project_id %></td>
-        <td><%=l task.created_at %></td>
+        <td><%= task.assigned_to_user.name %></td>
+        <td><%= task.time_entry_hours %> 小时</td>
+        <td style="width: 200px">
+          <div class="progress" style="margin-bottom: 0px">
+            <span class="progress-bar progress-bar-<%= task.at_risk ? 'danger' : 'success' %>" role="progressbar" aria-valuenow="<%= task.ratio %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= task.ratio %>%">
+              <span><%= task.ratio %>%</span>
+            </span>
+          </div>
+        </td>
+        <td><%= task.at_risk ? '是' : '否' %></td>
+        <td><%=l task.updated_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_task_path(task), :class => 'btn btn-default btn-xs' %>
+                      edit_project_task_path(@project, task), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      task_path(task),
+                      [@project, task],
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-xs btn-danger' %>

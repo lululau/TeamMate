@@ -24,12 +24,18 @@ class TaskJournalsController < ApplicationController
   # POST /task_journals
   # POST /task_journals.json
   def create
-    @task_journal = TaskJournal.new(task_journal_params)
+    @project = Project.find params[:project_id]
+    @task = Task.find params[:task_id]
+    @task_journal = @task.task_journals.build(task_journal_params)
+    @task_journal.operator_id = current_user.id
+    @task_journal.old_done_ratio = @task.ratio
 
     respond_to do |format|
       if @task_journal.save
-        format.html { redirect_to @task_journal, notice: 'Task journal was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @task_journal }
+        @task.update :ratio => @task_journal.new_done_ratio,
+                     :time_entry_hours => @task.time_entry_hours + task_journal_params[:time_entry_hours].to_i
+        format.html { redirect_to [@project, @task], notice: 'Task journal was successfully created.' }
+        format.json { render action: 'show', status: :created, location: [@project, @task] }
       else
         format.html { render action: 'new' }
         format.json { render json: @task_journal.errors, status: :unprocessable_entity }

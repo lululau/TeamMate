@@ -1,39 +1,225 @@
 <%- model_class = Task -%>
+<div class="nav-tabs">
+  <%= render :partial => "common/project_module_tabs", :locals => {:tab_name => 'tasks'} %>
+</div>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %><small><%= @task.subject %></small></h1>
+</div>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    基本信息
+  </div>
+  <div class="panel-body">
+    <div class="row">
+        <div class="col-lg-4">
+          <dl class="dl-horizontal">
+            <dt><strong><%= model_class.human_attribute_name(:category) %>:</strong></dt>
+            <dd><%=t @task.category, :scope => 'simple_form.options.task.category' %></dd>
+            <dt><strong><%= model_class.human_attribute_name(:subject) %>:</strong></dt>
+            <dd><%= @task.subject %></dd>
+            <dt><strong><%= model_class.human_attribute_name(:priority) %>:</strong></dt>
+            <dd><%= @task.priority %></dd>
+            <dt><strong><%= model_class.human_attribute_name(:at_risk) %>:</strong></dt>
+            <dd><%= @task.at_risk ? '是' : '否' %></dd>
+          </dl>
+        </div>
+        <div class="col-lg-4">
+          <dl class="dl-horizontal">
+            <dt><strong><%= model_class.human_attribute_name(:assigned_to_user) %>:</strong></dt>
+            <dd><%= @task.assigned_to_user.name %></dd>
+            <dt><strong><%= model_class.human_attribute_name(:watchers) %>:</strong></dt>
+            <dd><%= @task.watchers.map {|w| w.name}.join(', ') %></dd>
+            <dt><strong><%= model_class.human_attribute_name(:time_entry_hours) %>:</strong></dt>
+            <dd><%= @task.time_entry_hours %> 小时</dd>
+            <dt><strong><%= model_class.human_attribute_name(:ratio) %>:</strong></dt>
+            <dd>
+              <div class="progress" style="margin-bottom: 0px">
+                <span class="progress-bar progress-bar-<%= @task.at_risk ? 'danger' : 'success' %>" role="progressbar" aria-valuenow="<%= @task.ratio %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= @task.ratio %>%">
+                  <span><%= @task.ratio %>%</span>
+                </span>
+              </div>
+            </dd>
+          </dl>
+        </div>
+        <div class="col-lg-4">
+          <dl class="dl-horizontal">
+            <dt><strong><%= model_class.human_attribute_name(:parent) %>:</strong></dt>
+            <dd>
+              <% if @task.parent.present? %>
+                  <%= link_to @task.parent.subject, [@project, @task.parent] %>
+              <% end %>
+            </dd>
+            <dt><strong><%= model_class.human_attribute_name(:start_date) %>:</strong></dt>
+            <dd><%= @task.start_date %></dd>
+            <dt><strong><%= model_class.human_attribute_name(:due_date) %>:</strong></dt>
+            <dd><%= @task.due_date %></dd>
+          </dl>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <dl class="dl-horizontal">
+          <dt><strong><%= model_class.human_attribute_name(:reason_of_risk) %>:</strong></dt>
+          <dd><%= @task.reason_of_risk %></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    描述
+  </div>
+  <div class="panel-body">
+    <%= @task.description %>
+  </div>
 </div>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:category) %>:</strong></dt>
-  <dd><%= @task.category %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:subject) %>:</strong></dt>
-  <dd><%= @task.subject %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
-  <dd><%= @task.description %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:priority) %>:</strong></dt>
-  <dd><%= @task.priority %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:assigned_to_user_id) %>:</strong></dt>
-  <dd><%= @task.assigned_to_user_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:parent_id) %>:</strong></dt>
-  <dd><%= @task.parent_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:start_date) %>:</strong></dt>
-  <dd><%= @task.start_date %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:due_date) %>:</strong></dt>
-  <dd><%= @task.due_date %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:at_risk) %>:</strong></dt>
-  <dd><%= @task.at_risk %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:reason_of_risk) %>:</strong></dt>
-  <dd><%= @task.reason_of_risk %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:project_id) %>:</strong></dt>
-  <dd><%= @task.project_id %></dd>
-</dl>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    子任务
+  </div>
+  <div class="panel-body">
+    <% if @task.children.any? %>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th><%= model_class.human_attribute_name(:id) %></th>
+        <th><%= model_class.human_attribute_name(:subject) %></th>
+        <th><%= model_class.human_attribute_name(:category) %></th>
+        <th><%= model_class.human_attribute_name(:priority) %></th>
+        <th><%= model_class.human_attribute_name(:assigned_to_user) %></th>
+        <th><%= model_class.human_attribute_name(:time_entry_hours) %></th>
+        <th><%= model_class.human_attribute_name(:ratio) %></th>
+        <th><%= model_class.human_attribute_name(:at_risk) %></th>
+        <th><%= model_class.human_attribute_name(:updated_at) %></th>
+        <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @task.children.each do |task| %>
+          <tr>
+            <td><%= link_to task.id, [@project, task] %></td>
+            <td><%= link_to task.subject, [@project, task] %></td>
+            <td><%= t task.category, :scope => 'simple_form.options.task.category' %></td>
+            <td><%= task.priority %></td>
+            <td><%= task.assigned_to_user.name %></td>
+            <td><%= task.time_entry_hours %> 小时</td>
+            <td style="width: 200px">
+              <div class="progress" style="margin-bottom: 0px">
+                <span class="progress-bar progress-bar-<%= task.at_risk ? 'danger' : 'success' %>" role="progressbar" aria-valuenow="<%= task.ratio %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= task.ratio %>%">
+                  <span><%= task.ratio %>%</span>
+                </span>
+              </div>
+            </td>
+            <td><%= task.at_risk ? '是' : '否' %></td>
+            <td><%=l task.updated_at %></td>
+            <td>
+              <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                          edit_project_task_path(@project, task), :class => 'btn btn-default btn-xs' %>
+              <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                          [@project, task],
+                          :method => :delete,
+                          :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                          :class => 'btn btn-xs btn-danger' %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <% end %>
+  </div>
+</div>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    历史记录
+  </div>
+  <div class="panel-body">
+    <% @task.task_journals.each do |journal| %>
+    <h5>
+      由 <%= journal.operator.name %> 更新于 <%= time_ago_in_words journal.updated_at %> 之前
+    </h5>
+    <hr/>
+    <div class="well well-sm">
+      <ul>
+          <li>
+            进度从 <%= journal.old_done_ratio %> % 变更为 <%= journal.new_done_ratio %> %
+            <br/><br/>
+          <div class="progress" style="width: 300px">
+            <div class="progress-bar progress-bar-info" style="width: <%= journal.old_done_ratio %>%">
+              <span><%= journal.old_done_ratio %>%</span>
+            </div>
+            <div class="progress-bar" style="width: <%= journal.new_done_ratio - journal.old_done_ratio %>%">
+              <span><%= journal.new_done_ratio %>%</span>
+            </div>
+          </div>
+          </li>
+
+        <li>耗时被设置为 <%= journal.time_entry_hours %> 小时</li>
+      </ul>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="modal fade" id="new_time_entry_modal" tabindex="-1" role="dialog" aria-labelledby="new_time_entry_modal_title" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= simple_form_for [@project, @task, @task.task_journals.build], :html => { :class => 'form-horizontal' }, :remote => true, :data => {:type => 'json'} do |f| %>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="new_time_entry_modal_title">登记工时</h4>
+      </div>
+      <div class="modal-body">
+        <%= f.input :time_entry_hours %>
+        <%= f.input :new_done_ratio %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <%= f.button :submit, :value => '保存', :class => 'btn btn-primary' %>
+      </div>
+      <% end %>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
-              tasks_path, :class => 'btn btn-default'  %>
+              project_tasks_path(@project), :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_task_path(@task), :class => 'btn btn-default' %>
+              edit_project_task_path(@project, @task), :class => 'btn btn-default' %>
+<%= link_to '登记工时', '', :class => 'btn btn-primary', :data => {:toggle => 'modal', :target => '#new_time_entry_modal'} %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              task_path(@task),
+              [@project, @task],
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
+
+<script type="text/javascript">
+$(document).on('ready page:change', function() {
+    var new_task_journal_form = $('#new_task_journal');
+    new_task_journal_form.on('ajax:success', function(e, data, status, xhr) {
+       window.location.href = window.location.href;
+    });
+    new_task_journal_form.on('ajax:error', function(e, data, status, xhr) {
+
+        var fields = ['time_entry_hours', 'new_done_ratio'];
+        for (var idx in fields) {
+            var field = fields[idx];
+            var form_group = new_task_journal_form.find("div.task_journal_" + field);
+            var input_wrapper = form_group.children("div");
+            input_wrapper.children('span').remove();
+            form_group.removeClass('has-error');
+        }
+
+        data = data['responseJSON'];
+        for (var field in data) {
+            var form_group = new_task_journal_form.find("div.task_journal_" + field);
+            var input_wrapper = form_group.children("div");
+            input_wrapper.append('<span class="help-block">' + data[field][0] + '</span>')
+            form_group.addClass('has-error');
+        }
+    });
+
+})
+</script>

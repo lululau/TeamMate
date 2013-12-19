@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131213015709) do
+ActiveRecord::Schema.define(version: 20131219062738) do
 
   create_table "contributors_wikis", id: false, force: true do |t|
     t.integer "user_id", null: false
@@ -64,6 +64,8 @@ ActiveRecord::Schema.define(version: 20131213015709) do
     t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "time_entry_hours",    default: 0
+    t.integer  "ratio",               default: 0
   end
 
   add_index "tasks", ["assigned_to_user_id"], name: "index_tasks_on_assigned_to_user_id"
