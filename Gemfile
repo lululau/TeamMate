@@ -64,3 +64,6 @@ gem "simple_form", :github => 'lululau/simple_form', :branch => 'bootstrap3'
 gem 'datetimepicker-rails', :github => 'lululau/datetimepicker-rails'
 gem 'chosen-rails', :github => 'lululau/chosen-rails', :branch => 'bootstrap3'
 gem 'devise'
+
+gem 'redcarpet'
+gem 'coderay'
