@@ -26,9 +26,13 @@
         <div class="col-lg-4">
           <dl class="dl-horizontal">
             <dt><strong><%= model_class.human_attribute_name(:assigned_to_user) %>:</strong></dt>
-            <dd><%= @task.assigned_to_user.name %></dd>
+            <dd><span class="label label-primary"><%= @task.assigned_to_user.name %></span></dd>
             <dt><strong><%= model_class.human_attribute_name(:watchers) %>:</strong></dt>
-            <dd><%= @task.watchers.map {|w| w.name}.join(', ') %></dd>
+            <dd>
+              <% @task.watchers.each do |w| %>
+              <span class="label label-default"><%= w.name %></span>
+              <% end %>
+            </dd>
             <dt><strong><%= model_class.human_attribute_name(:time_entry_hours) %>:</strong></dt>
             <dd><%= @task.time_entry_hours %> 小时</dd>
             <dt><strong><%= model_class.human_attribute_name(:ratio) %>:</strong></dt>

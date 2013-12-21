@@ -6,7 +6,12 @@ TeamMate::Application.routes.draw do
     resources :tasks do
       resources :task_journals
     end
-    resources :wikis
+    get '/root_wiki', :controller => 'wikis', :action => 'root'
+    get '/wiki/:id/edit', :controller => 'wikis', :action => 'edit', :as => 'edit_wiki'
+    get '/wiki/:parent_id/:subject', :controller => 'wikis', :action => 'show_or_new', :as => 'show_or_new_wiki'
+    post '/wikis', :controller => 'wikis', :action => 'create'
+    patch '/wiki/:id', :controller => 'wikis', :action => 'update', :as => 'wiki'
+    delete '/wiki/:id', :controller => 'wikis', :action => 'destroy'
   end
 
   devise_for :users, :controllers => {

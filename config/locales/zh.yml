@@ -204,6 +204,7 @@ zh:
   activerecord:
     models:
       task: 任务
+      wiki: ' Wiki'
     attributes:
       task:
         id: ID
@@ -221,6 +222,13 @@ zh:
         at_risk: '存在风险'
         reason_of_risk: '风险原因'
         updated_at: 更新于
+      wiki:
+        id: ID
+        subject: 标题
+        content: 正文
+        parent: '父 Wiki'
+        author: 作者
+        contributors: 贡献者
     errors:
       <<: *errors
       models:
@@ -229,6 +237,10 @@ zh:
             category:
               blank: 必须选择一项
             assigned_to_user:
+              blank: 必须选择一项
+        wiki:
+          attributes:
+            author:
               blank: 必须选择一项
   tasks:
     index:

@@ -18,6 +18,7 @@
 //= require bootstrap-datetimepicker
 //= require bootstrap-datetimepicker/picker
 //= require chosen-jquery
+//= require bootstrap-tree
 
 $(document).on('ready page:change', function() {
    $('.chosen-select').chosen({

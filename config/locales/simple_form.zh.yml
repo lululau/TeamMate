@@ -34,6 +34,13 @@ zh:
          due_date: '预期完成日期'
          at_risk: '存在风险'
          reason_of_risk: '风险原因'
+       wiki:
+        id: ID
+        subject: 标题
+        content: 正文
+        parent: '父 Wiki'
+        author: 作者
+        contributors: 贡献者
 
 
     hints:

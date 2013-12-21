@@ -9,7 +9,25 @@ module ApplicationHelper
       :strikethrough =>true
     }
     markdown = Redcarpet::Markdown.new(HTMLwithCodeRay,options)
-    markdown.render(text.gsub("\r\n", "\n")).html_safe
+    html = markdown.render(text.gsub("\r\n", "\n"))
+
+    html.gsub! /\[\[([^\[\]]*?)\]\]/ do
+      subject = $1
+      if subject =~ /([^:]*?):(.*)/
+        project_name = $1
+        subject = $2
+        project = Project.find_by :name => project_name
+        if project
+          link_to($&, project_show_or_new_wiki_path(project, @wiki, subject))
+        else
+          "[[#{project_name}:#{subject}]]"
+        end
+      else
+        link_to(subject, project_show_or_new_wiki_path(@project, @wiki, subject))
+      end
+    end
+
+    html.html_safe
   end
 
   class HTMLwithCodeRay < Redcarpet::Render::HTML
@@ -17,4 +35,22 @@ module ApplicationHelper
       CodeRay.scan(code, language).div(:tab_width=>2)
     end
   end
+
+  def wiki_tree_html(wiki)
+    descendent_htmls = []
+
+    wiki.children.any? and wiki.children.each do |child|
+      descendent_htmls << wiki_tree_html(child)
+    end
+
+    html = <<"EOF"
+   <li>
+   <span class="glyphicon glyphicon-#{descendent_htmls.any? ? 'minus' : 'minus'}-sign"> </span> #{link_to wiki.subject, (wiki.parent_id.present? ? project_show_or_new_wiki_path(@project, wiki.parent_id, wiki.subject) : project_root_wiki_path(@project)) }
+   <ul>
+     #{descendent_htmls.join("\n")}
+   </ul>
+   </li>
+EOF
+  end
+
 end
