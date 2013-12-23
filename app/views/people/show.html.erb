@@ -1,7 +1,13 @@
 <%- model_class = Person -%>
+<div class="nav-tabs">
+  <%= render :partial => "common/manage_module_tabs", :locals => {:tab_name => 'users'} %>
+</div>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
+
+
+<img class="img-circle" width="200" height="200" src="<%= avatar_path @person %>"/>
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
@@ -9,11 +15,9 @@
   <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
   <dd><%= @person.email %></dd>
   <dt><strong><%= model_class.human_attribute_name(:role) %>:</strong></dt>
-  <dd><%= @person.role %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:avatar) %>:</strong></dt>
-  <dd><%= @person.avatar %></dd>
+  <dd><%=t @person.role, :scope => 'simple_form.options.person.role' %></dd>
   <dt><strong><%= model_class.human_attribute_name(:locked) %>:</strong></dt>
-  <dd><%= @person.locked %></dd>
+  <dd><%= @person.locked ? '是' : '否' %></dd>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),

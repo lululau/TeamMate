@@ -57,21 +57,27 @@
               <% end %>
             </ul>
           </li>
-          <li id="nav-my-job"><a href="#">我的工作</a></li>
-          <% if [ 'admin', 'manager'].include? current_user.role %>
+          <li id="nav-my-tasks"><%= link_to '我的工作', my_tasks_path %></li>
+          <% if current_user and [ 'admin', 'manager'].include?(current_user.role) %>
               <li id="nav-management"><%= link_to '管理', projects_path %></li>
           <% end %>
         </ul>
+        <% if current_user %>
         <ul class="nav navbar-nav navbar-right">
           <li id="nav-account" class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.name || current_user.email %> <b class="caret"></b></a>
+            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.name || current_user.email %> <b class="caret"></b></a>-->
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 0px; padding-top: 5px"><img class="img-circle" width="40" height="40" src="<%= avatar_path(current_user) %>"/><b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="#">修改个人资料</a></li>
+              <li class="dropdown-header">当前用户: <%= current_user.name || current_user.email %></li>
+              <li>
+                <%= link_to '修改个人资料', edit_user_registration_path %>
+              </li>
               <li class="divider"></li>
               <li><%= link_to "退出", destroy_user_session_path, :method => :delete, :data => {:confirm => '确定要退出吗'} %></li>
             </ul>
           </li>
         </ul>
+        <% end %>
       </div><!-- /.navbar-collapse -->
   <% end %>
   <script type="text/javascript">
@@ -92,7 +98,7 @@
       </div><!--/row-->
 
       <footer>
-        <p>&copy; Company 2013</p>
+        <p>&copy; 刘向 2013</p>
       </footer>
 
     </div> <!-- /container -->

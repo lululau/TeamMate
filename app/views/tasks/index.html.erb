@@ -26,7 +26,11 @@
         <td><%= task.parent.present? ? link_to(task.parent.id, [@project, task.parent]) : "" %></td>
         <td><%= t task.category, :scope => 'simple_form.options.task.category' %></td>
         <td><%= task.priority %></td>
-        <td><%= task.assigned_to_user.name %></td>
+        <td>
+          <span class="label label-primary">
+            <%= task.assigned_to_user.name %>
+          </span>
+        </td>
         <td><%= task.time_entry_hours %> 小时</td>
         <td style="width: 200px">
           <div class="progress" style="margin-bottom: 0px">

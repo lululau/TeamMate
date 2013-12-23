@@ -7,25 +7,25 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:avatar) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:email) %></th>
       <th><%= model_class.human_attribute_name(:role) %></th>
-      <th><%= model_class.human_attribute_name(:avatar) %></th>
       <th><%= model_class.human_attribute_name(:locked) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th><%= model_class.human_attribute_name(:current_sign_in_at) %></th>
+      <th>操作</th>
     </tr>
   </thead>
   <tbody>
     <% @people.each do |person| %>
       <tr>
         <td><%= link_to person.id, person_path(person) %></td>
-        <td><%= person.name %></td>
-        <td><%= person.email %></td>
-        <td><%= person.role %></td>
-        <td><%= person.avatar %></td>
-        <td><%= person.locked %></td>
-        <td><%=l person.created_at %></td>
+        <td><img class="img-circle" width="30" height="30" src="<%= avatar_path(person) %>"/></td>
+        <td><%= link_to person.name || '', person_path(person) %></td>
+        <td><%= link_to person.email, person_path(person) %></td>
+        <td><%=t person.role, :scope => 'simple_form.options.person.role' %></td>
+        <td><%= person.locked ? '是' : '否' %></td>
+        <td><%=l person.current_sign_in_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_person_path(person), :class => 'btn btn-default btn-xs' %>

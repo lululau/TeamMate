@@ -205,6 +205,9 @@ zh:
     models:
       task: 任务
       wiki: ' Wiki'
+      project: '项目'
+      user: 用户
+      person: 用户
     attributes:
       task:
         id: ID
@@ -217,6 +220,7 @@ zh:
         time_entry_hours: 耗时
         ratio: 进度
         parent: '父任务'
+        project: '项目'
         start_date: '开始日期'
         due_date: '预期完成日期'
         at_risk: '存在风险'
@@ -229,6 +233,43 @@ zh:
         parent: '父 Wiki'
         author: 作者
         contributors: 贡献者
+        updated_at: 更新于
+      project:
+        id: ID
+        name: 名称
+        description: 描述
+        public: 公开
+        managers: 管理员
+        members: 成员
+        wikis: Wiki
+        tasks: 任务
+        updated_at: 更新于
+        current_sign_in_at: 最后登陆
+      user:
+        id: ID
+        name: 姓名
+        email: Email
+        role: 角色
+        avatar: 头像
+        locked: 锁定
+        updated_at: 更新于
+      person:
+        id: ID
+        name: 姓名
+        email: Email
+        role: 角色
+        avatar: 头像
+        locked: 锁定
+        updated_at: 更新于
+        current_sign_in_at: 最后登陆
+      task_journal:
+        id: ID
+        project: 项目
+        task: 任务
+        time_entry_hours: 耗时
+        old_done_ratio: 原进度
+        new_done_ratio: 新进度
+        created_at: 发生于
     errors:
       <<: *errors
       models:
@@ -243,5 +284,14 @@ zh:
             author:
               blank: 必须选择一项
   tasks:
+    index:
+      actions: 操作
+  projects:
+    index:
+      actions: 操作
+  user:
+    index:
+      actions: 操作
+  person:
     index:
       actions: 操作

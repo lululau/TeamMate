@@ -13,40 +13,62 @@ zh:
 
     #Labels and hints examples
     labels:
-       defaults:
-         password: '口令'
-         new_done_ratio: '进度'
-         time_entry_hours: '耗时'
-       user:
-         new:
-           email: 'Email.'
-         edit:
-           email: 'Email.'
-       task:
-         category: '分类'
-         subject: '主题'
-         description: '描述'
-         priority: '优先级'
-         assigned_to_user: '指派给'
-         watchers: '跟踪者'
-         parent: '父任务'
-         start_date: '开始日期'
-         due_date: '预期完成日期'
-         at_risk: '存在风险'
-         reason_of_risk: '风险原因'
-       wiki:
+      defaults:
+        password: '口令'
+        password_confirmation: '确认'
+        encrypted_password: '口令'
+        encrypted_password_confirmation: '确认'
+        current_password: '旧口令'
+        new_done_ratio: '进度'
+        time_entry_hours: '耗时'
+      user:
+        id: ID
+        name: 姓名
+        email: Email
+        role: 角色
+        avatar: 头像
+        locked: 锁定
+        updated_at: 更新于
+      person:
+        id: ID
+        name: 姓名
+        email: Email
+        role: 角色
+        avatar: 头像
+        locked: 锁定
+        updated_at: 更新于
+      task:
+        category: '分类'
+        subject: '主题'
+        description: '描述'
+        priority: '优先级'
+        assigned_to_user: '指派给'
+        watchers: '跟踪者'
+        parent: '父任务'
+        start_date: '开始日期'
+        due_date: '预期完成日期'
+        at_risk: '存在风险'
+        reason_of_risk: '风险原因'
+      wiki:
         id: ID
         subject: 标题
         content: 正文
         parent: '父 Wiki'
         author: 作者
         contributors: 贡献者
-
-
+      project:
+        id: ID
+        name: 名称
+        description: 描述
+        public: 公开
+        managers: 管理员
+        members: 成员
+        wikis: Wiki
+        tasks: 任务
     hints:
        defaults:
          username: '用户名'
-         password: 'No special characters, please.'
+         password: '请不要输入特殊字符'
 
     options:
       task:
@@ -54,3 +76,13 @@ zh:
           bug_fixing: Bug修复
           new_feature: 新增功能
           support: 支持
+      person:
+        role:
+          admin: 管理员
+          manager: 部门经理
+          normal: 普通用户
+      user:
+        role:
+          admin: 管理员
+          manager: 部门经理
+          normal: 普通用户

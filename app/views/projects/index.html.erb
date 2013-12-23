@@ -7,10 +7,9 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:description) %></th>
       <th><%= model_class.human_attribute_name(:public) %></th>
-      <th><%= model_class.human_attribute_name(:root_wiki_id) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:managers) %></th>
+      <th><%= model_class.human_attribute_name(:updated_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -18,11 +17,14 @@
     <% @projects.each do |project| %>
       <tr>
         <td><%= link_to project.id, project_path(project) %></td>
-        <td><%= project.name %></td>
-        <td><%= project.description %></td>
-        <td><%= project.public %></td>
-        <td><%= project.root_wiki_id %></td>
-        <td><%=l project.created_at %></td>
+        <td><%= link_to project.name, project_path(project) %></td>
+        <td><%= project.public ? '是' : '否' %></td>
+        <td>
+        <% project.managers.each do |m| %>
+          <span class="label label-primary"><%= m.name %></span>
+        <% end %>
+        </td>
+        <td><%=l project.updated_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_project_path(project), :class => 'btn btn-default btn-xs' %>

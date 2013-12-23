@@ -1,0 +1,44 @@
+<% model_class = TaskJournal %>
+
+<div class="nav-tabs">
+  <%= render :partial => "common/my_tasks_tabs", :locals => {:tab_name => @type} %>
+</div>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th><%= model_class.human_attribute_name(:id) %></th>
+    <th><%= model_class.human_attribute_name(:project) %></th>
+    <th><%= model_class.human_attribute_name(:task) %></th>
+    <th><%= model_class.human_attribute_name(:time_entry_hours) %></th>
+    <th><%= model_class.human_attribute_name(:old_done_ratio) %> ID</th>
+    <th><%= model_class.human_attribute_name(:new_done_ratio) %></th>
+    <th><%= model_class.human_attribute_name(:created_at) %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @journals.each do |journal| %>
+      <tr>
+        <td><%= journal.id %></td>
+        <td><%= link_to journal.task.project.name, project_tasks_path(journal.task.project) %></td>
+        <td><%= link_to journal.task.subject, project_task_path(journal.task.project, journal.task) %></td>
+        <td><%= journal.time_entry_hours %> 小时</td>
+        <td style="width: 200px">
+          <div class="progress" style="margin-bottom: 0px">
+            <span class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="<%= journal.old_done_ratio %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= journal.old_done_ratio %>%">
+              <span><%= journal.old_done_ratio %>%</span>
+            </span>
+          </div>
+        </td>
+        <td style="width: 200px">
+          <div class="progress" style="margin-bottom: 0px">
+            <span class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="<%= journal.new_done_ratio %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= journal.new_done_ratio %>%">
+              <span><%= journal.new_done_ratio %>%</span>
+            </span>
+          </div>
+        </td>
+        <td><%=time_ago_in_words journal.created_at %>前</td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

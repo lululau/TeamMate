@@ -10,4 +10,8 @@ class User < ActiveRecord::Base
   has_many :wikis, :foreign_key => 'author_id'
   has_and_belongs_to_many :contributed_wikis, :class_name => 'Wiki', :join_table => 'contributors_wikis'
   has_many :task_activities, :class_name => 'TaskJournal', :foreign_key => 'operator_id'
+
+  default_scope { where :locked => false}
+
+  validates :name, :uniqueness => true
 end

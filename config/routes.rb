@@ -14,8 +14,13 @@ TeamMate::Application.routes.draw do
     delete '/wiki/:id', :controller => 'wikis', :action => 'destroy'
   end
 
+  get '/my_tasks/(:type)', :controller => 'people', :action => 'tasks', :as => :my_tasks
+  get '/my_activities', :controller => 'people', :action => 'activities', :as => :my_activities
+
   devise_for :users, :controllers => {
-    :sessions => 'auth/sessions'
+    :sessions => 'auth/sessions',
+    :passwords => 'auth/passwords',
+    :registrations => 'auth/registrations'
   }
 
   root :to => "projects#index"

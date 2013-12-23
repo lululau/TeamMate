@@ -3,6 +3,22 @@ class PeopleController < ApplicationController
 
   before_action :set_nav_item_name
 
+  def tasks
+    @type = params[:type]
+    if @type and @type == 'watching'
+      @tasks = current_user.watching_tasks.all
+    else
+      @type = :assigned_to
+      @tasks = current_user.tasks.all
+    end
+    @nav_item_name = 'my-tasks'
+  end
+
+  def activities
+    @journals = current_user.task_activities.all
+    @type = :activities
+  end
+
   # GET /people
   # GET /people.json
   def index
@@ -17,6 +33,7 @@ class PeopleController < ApplicationController
   # GET /people/new
   def new
     @person = Person.new
+    @person.role = Person::Role::NORMAL
   end
 
   # GET /people/1/edit
@@ -30,6 +47,12 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.save
+        encrypted_password = Devise.bcrypt(Class.new do
+          class << self
+            Devise::Models.config self, :pepper, :stretches
+          end
+        end, person_params[:encrypted_password])
+        @person.update :encrypted_password => encrypted_password, :encrypted_password_confirmation => encrypted_password
         format.html { redirect_to @person, notice: 'Person was successfully created.' }
         format.json { render action: 'show', status: :created, location: @person }
       else
@@ -44,6 +67,12 @@ class PeopleController < ApplicationController
   def update
     respond_to do |format|
       if @person.update(person_params)
+        encrypted_password = Devise.bcrypt(Class.new do
+          class << self
+            Devise::Models.config self, :pepper, :stretches
+          end
+        end, person_params[:encrypted_password])
+        @person.update :encrypted_password => encrypted_password, :encrypted_password_confirmation => encrypted_password
         format.html { redirect_to @person, notice: 'Person was successfully updated.' }
         format.json { head :no_content }
       else
@@ -75,6 +104,6 @@ class PeopleController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def person_params
-      params.require(:person).permit(:name, :email, :password, :role, :avatar, :locked)
+      params.require(:person).permit(:name, :email, :encrypted_password, :encrypted_password_confirmation, :role, :avatar, :locked)
     end
 end

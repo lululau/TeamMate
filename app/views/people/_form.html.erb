@@ -1,8 +1,9 @@
 <%= simple_form_for @person, :html => { :class => 'form-horizontal' } do |f| %>
   <%= f.input :name %>
   <%= f.input :email %>
-  <%= f.input :role %>
-  <%= f.input :avatar %>
+  <%= f.input :encrypted_password %>
+  <%= f.input :encrypted_password_confirmation %>
+  <%= f.input :role, :collection => Person::Role::OPTIONS, :input_html => {:class => 'chosen-select'} %>
   <%= f.input :locked %>
 
   <%= f.button :submit, :class => 'btn-primary' %>

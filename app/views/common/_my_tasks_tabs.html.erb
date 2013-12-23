@@ -1,0 +1,16 @@
+<ul id="my-tasks-tabs" class="nav nav-tabs nav-justified">
+  <li id="tab-assigned_to">
+    <%= link_to '指派给我的任务', my_tasks_path(:assigned_to) %>
+  </li>
+  <li id="tab-watching">
+    <%= link_to '我跟踪的任务', my_tasks_path(:watching) %>
+  </li>
+  <li id="tab-activities">
+    <%= link_to '我的活动', my_activities_path %>
+  </li>
+</ul>
+<script type="text/javascript">
+    $('#my-tasks-tabs li').removeClass('active');
+    var tab_name = '<%= tab_name %>';
+    $('#tab-' + tab_name).addClass('active')
+</script>

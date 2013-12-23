@@ -53,4 +53,12 @@ module ApplicationHelper
 EOF
   end
 
+  def avatar_path(obj)
+    if obj === Integer
+      avatar_id = obj
+    else
+      avatar_id = obj.avatar
+    end
+    "/images/avatar/#{avatar_id}.png"
+  end
 end

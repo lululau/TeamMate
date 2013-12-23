@@ -1,18 +1,47 @@
 <%- model_class = Project -%>
+<div class="nav-tabs">
+  <%= render :partial => "common/manage_module_tabs", :locals => {:tab_name => 'projects'} %>
+</div>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @project.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
-  <dd><%= @project.description %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:public) %>:</strong></dt>
-  <dd><%= @project.public %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:root_wiki_id) %>:</strong></dt>
-  <dd><%= @project.root_wiki_id %></dd>
-</dl>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    基本信息
+  </div>
+  <div class="panel-body">
+    <dl class="dl-horizontal">
+      <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+      <dd><%= @project.name %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:public) %>:</strong></dt>
+      <dd><%= @project.public ? '是' : '否' %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:managers) %>:</strong></dt>
+      <dd>
+      <% @project.managers.each do |m| %>
+          <span class="label label-primary"><%= m.name %></span>
+      <% end %>
+      </dd>
+      <dd>
+      <dt><strong><%= model_class.human_attribute_name(:members) %>:</strong></dt>
+      <% @project.members.each do |m| %>
+          <span class="label label-default"><%= m.name %></span>
+      <% end %>
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    描述
+  </div>
+  <div class="panel-body">
+    <%=markdown @project.description %>
+  </div>
+</div>
+
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               projects_path, :class => 'btn btn-default'  %>
