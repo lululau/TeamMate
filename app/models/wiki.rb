@@ -6,4 +6,13 @@ class Wiki < ActiveRecord::Base
   has_and_belongs_to_many :contributors, :class_name => :User, :join_table => 'contributors_wikis'
 
   validates :author, :presence => true
+  validate :check_parent, :on => :update
+
+  private
+
+  def check_parent
+    if parent_id == id
+      errors.add :parent, '不能设置为自身'
+    end
+  end
 end

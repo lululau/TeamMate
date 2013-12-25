@@ -58,3 +58,6 @@
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_project_task_path(@project),
             :class => 'btn btn-primary' %>
+<% unless current_user.role == 'admin' or (@project.managers + @project.members).include? current_user  %>
+<%= render 'disable_buttons' %>
+<% end %>

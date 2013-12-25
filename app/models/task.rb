@@ -18,4 +18,14 @@ class Task < ActiveRecord::Base
   validates :subject, :presence => true, :length => {:maximum => 200}
   validates :assigned_to_user, :presence => true
 
+  validate :check_parent, :on => :update
+
+  private
+
+  def check_parent
+    if parent_id == id
+      errors.add :parent, '不能设置为自身'
+    end
+  end
+
 end

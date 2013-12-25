@@ -1,10 +1,15 @@
+<% user_options = (@project.managers + @project.members + User.where(:role => 'admin').all).uniq %>
 <%= simple_form_for [@project, @task], :html => { :class => 'form-horizontal' } do |f| %>
   <%= f.input :category, :collection => Task::Category::OPTIONS, :input_html => {:class => 'chosen-select'} %>
   <%= f.input :subject %>
   <%= f.input :description, :input_html => {:rows => '10'} %>
   <%= f.input :priority, :collection => 1..5, :as => :radio_buttons, :item_wrapper_class => 'radio-inline' %>
-  <%= f.association :assigned_to_user, :collection => User.all, :input_html => {:class => 'chosen-select'} %>
-  <%= f.association :watchers, :collection => User.all, :input_html => {:class => 'chosen-select'} %>
+  <% if @task.new_record? or current_user.role == 'admin' or @project.managers.include?(current_user) or @task.assigned_to_user == current_user %>
+     <%= f.association :assigned_to_user, :collection => user_options, :input_html => {:class => 'chosen-select'} %>
+  <% else %>
+     <%= f.association :assigned_to_user, :collection => [@task.assigned_to_user], :input_html => {:class => 'chosen-select'} %>
+  <% end %>
+  <%= f.association :watchers, :collection => user_options, :input_html => {:class => 'chosen-select'} %>
   <%= f.association :parent, :collection => @task_options, :label_method => :subject, :value_method => :id, :input_html => {:class => 'chosen-select'} %>
   <%= f.input :start_date, :as => 'date_picker' %>
   <%= f.input :due_date, :as => 'date_picker' %>

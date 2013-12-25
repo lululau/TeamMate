@@ -227,3 +227,7 @@ $(document).on('ready page:change', function() {
 
 })
 </script>
+
+<% unless current_user.role == 'admin' or (@project.managers + @project.members).include? current_user  %>
+    <%= render 'disable_buttons' %>
+<% end %>

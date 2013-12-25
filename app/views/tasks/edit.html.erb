@@ -6,3 +6,7 @@
   <h1><%=t '.title', :default => [:'helpers.titles.edit', '编辑%{model}'], :model => model_class.model_name.human.titleize %></h1>
 </div>
 <%= render :partial => 'form' %>
+
+<% unless current_user.role == 'admin' or (@project.managers + @project.members).include? current_user  %>
+    <%= render 'disable_buttons' %>
+<% end %>

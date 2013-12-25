@@ -6,4 +6,12 @@ class Project < ActiveRecord::Base
 
   validates :name, :presence => true, :length => {:maximum => 200}
   validates :managers, :presence => true
+
+  def self.projects_of(user)
+    if user.role == 'admin'
+      all
+    else
+      (user.managed_projects + user.involved_projects).uniq
+    end
+  end
 end

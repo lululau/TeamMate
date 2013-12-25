@@ -52,7 +52,7 @@
               <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <% Project.all.each do |p| %>
+              <% Project.projects_of(current_user).each do |p| %>
               <li id="nav-selected-project-<%= p.id %>"><%= link_to p.name, project_tasks_path(p) %></li>
               <% end %>
             </ul>

@@ -1,11 +1,17 @@
+<% user_options = (@project.managers + @project.members + User.where(:role => 'admin').all).uniq %>
 <%= simple_form_for [@project, @wiki], :html => { :class => 'form-horizontal'} do |f| %>
-    <%= f.association :author, :collection => User.all, :input_html => {:class => 'chosen-select'}, :label_html => {:style => 'text-align: left'} %>
-    <%= f.association :contributors, :collection => User.all, :input_html => {:class => 'chosen-select'}, :label_html => {:style => 'text-align: left'} %>
+
+    <% if @wiki.new_record? or current_user.role == 'admin' or @project.managers.include?(current_user) or @wiki.author == current_user %>
+        <%= f.association :author, :collection => user_options, :input_html => {:class => 'chosen-select'}, :label_html => {:style => 'text-align: left'} %>
+    <% else %>
+        <%= f.association :author, :collection => [@wiki.author], :input_html => {:class => 'chosen-select'}, :label_html => {:style => 'text-align: left'} %>
+    <% end %>
+    <%= f.association :contributors, :collection => user_options, :input_html => {:class => 'chosen-select'}, :label_html => {:style => 'text-align: left'} %>
 
     <% if @project.root_wiki_id == @wiki.id %>
         <%= f.association :parent, :as => :hidden %>
     <% else %>
-        <%= f.association :parent, :collection => @project.wikis.all, :label_method => :subject, :input_html => { :class => 'chosen-select' }, :label_html => {:style => 'text-align: left'} %>
+        <%= f.association :parent, :collection => (@project.wikis.all - [@wiki]), :label_method => :subject, :input_html => { :class => 'chosen-select' }, :label_html => {:style => 'text-align: left'} %>
     <% end %>
     <div class="form-group">
     <div class="col-lg-12">

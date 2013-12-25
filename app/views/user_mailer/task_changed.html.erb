@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+<p>Hello</p>
+<p>
+  Task <%= link_to @task.subject, project_tasks_url(@task.project, @task) %> has been changed:
+</p>
+
+<ul>
+  <li>Ratio has been changed from <%= @task_journal.old_done_ratio %>% to <%= @task_journal.new_done_ratio %>%.</li>
+  <li>Time Entry has been set to <%= @task_journal.time_entry_hours %> hours.</li>
+</ul>
+
+<p>
+  click <%= link_to 'Here', url_for(:controller => 'auth/sessions', :action => 'new', :only_path => false) %> to sign in.
+</p>
+<p>Thanks for joining and have a great day!</p>
+</body>

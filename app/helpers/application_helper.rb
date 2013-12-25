@@ -59,6 +59,18 @@ EOF
     else
       avatar_id = obj.avatar
     end
-    "/images/avatar/#{avatar_id}.png"
+    "/images/avatar/#{avatar_id || 0}.png"
+  end
+
+  def role_level_lt_me(user)
+    roles = {
+      nil => 1,
+      "normal" => 1,
+      "manager"  => 2,
+      "admin" => 3
+    }
+    my_role = roles[current_user.role]
+    user_role = roles[user.role]
+    return user_role < my_role
   end
 end

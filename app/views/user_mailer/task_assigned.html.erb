@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+<p>Hello <%= @user.name %></p>
+<p>
+  Task <%= link_to @task.subject, project_tasks_url(@task.project, @task) %> has been assigned to you.
+</p>
+
+<p>
+  click <%= link_to 'Here', url_for(:controller => 'auth/sessions', :action => 'new', :only_path => false) %> to sign in.
+</p>
+<p>Thanks for joining and have a great day!</p>
+</body>

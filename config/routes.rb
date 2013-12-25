@@ -23,7 +23,7 @@ TeamMate::Application.routes.draw do
     :registrations => 'auth/registrations'
   }
 
-  root :to => "projects#index"
+  root :to => "people#tasks"
 
 
   # The priority is based upon order of creation: first created -> highest priority.

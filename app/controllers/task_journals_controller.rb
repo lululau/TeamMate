@@ -34,6 +34,7 @@ class TaskJournalsController < ApplicationController
       if @task_journal.save
         @task.update :ratio => @task_journal.new_done_ratio,
                      :time_entry_hours => @task.time_entry_hours + task_journal_params[:time_entry_hours].to_i
+        UserMailer.task_changed(@task_journal).deliver
         format.html { redirect_to [@project, @task], notice: 'Task journal was successfully created.' }
         format.json { render action: 'show', status: :created, location: [@project, @task] }
       else

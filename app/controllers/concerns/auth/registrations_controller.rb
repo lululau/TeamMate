@@ -10,6 +10,7 @@ class Auth::RegistrationsController < Devise::RegistrationsController
     build_resource(sign_up_params)
 
     if resource.save
+      UserMailer.registration_created(resource).deliver
       yield resource if block_given?
       set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
       expire_data_after_sign_in!

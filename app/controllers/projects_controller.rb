@@ -1,15 +1,27 @@
 class ProjectsController < ApplicationController
 
-  before_filter :authenticate_user!
-
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   before_action :set_nav_item_name
 
+  before_action do |controller|
+    actions = ['edit', 'updtae', 'destroy']
+    return unless actions.include? action_name
+    role = current_user.role
+    project = Project.find params[:id]
+    unless role == 'admin' or project.managers.all.include? current_user
+      redirect_to projects_path, :alert => '访问被拒绝，您可能没有权限或未登录。'
+    end
+  end
+
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    if current_user.role == 'admin'
+      @projects = Project.all
+    else
+      @projects = current_user.managed_projects
+    end
   end
 
   # GET /projects/1

@@ -4,7 +4,22 @@ class WikisController < ApplicationController
   before_action :set_selected_project_cookie
   before_action :set_nav_item_name
 
+  before_action do |controller|
+    if ['edit', 'update', 'create', 'destroy'].include? action_name
+      role = current_user.role
+      unless role == 'admin' or (@project.managers + @project.members).include? current_user
+        redirect_to root_path, :alert => '访问被拒绝，您可能没有权限或未登录。'
+        return
+      end
+    end
+  end
+
   def root
+    role = current_user.role
+    unless role == 'admin' or @project.public or (@project.managers + @project.members).include? current_user
+      redirect_to root_path, :alert => '访问被拒绝，您可能没有权限或未登录。'
+      return
+    end
     if @project.root_wiki_id
       root_wiki = Wiki.find @project.root_wiki_id
       if root_wiki.present?
@@ -23,9 +38,22 @@ class WikisController < ApplicationController
   def show_or_new
     subject = params[:subject]
     @wiki = @project.wikis.find_by :subject => subject
+    role = current_user.role
     if @wiki
+      unless role == 'admin' or @project.public or (@project.managers + @project.members).include? current_user
+        redirect_to root_path, :alert => '访问被拒绝，您可能没有权限或未登录。'
+        return
+      end
       render :show
     else
+      unless role == 'admin' or (@project.managers + @project.members).include? current_user
+        if @project.public
+          redirect_to root_path, :alert => '访问的 Wiki 不存在。'
+        else
+          redirect_to root_path, :alert => '访问被拒绝，您可能没有权限或未登录。'
+        end
+        return
+      end
       @parent = Wiki.find params[:parent_id]
       @wiki = @project.wikis.build :content => "# #{subject}", :author => current_user, :parent => @parent
       render :new
