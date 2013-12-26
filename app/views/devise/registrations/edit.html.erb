@@ -18,7 +18,11 @@
       </div>
     </div>
     <%= f.input :name, :required => true, :auto_focus => true %>
-    <%= f.input :email, :required => true %>
+    <% if resource.role == 'admin' %>
+        <%= f.input :email, :required => true, :hint => 'DEMO版本不能修改admin用户的email地址' %>
+    <% else %>
+        <%= f.input :email, :required => true %>
+    <% end %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
