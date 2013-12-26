@@ -22,26 +22,124 @@ class PeopleController < ApplicationController
 
 
   def tasks
+    search_condition = case params[:search_key]
+                         when 'subject'
+                           Task.where('subject like ?', "%#{params[:search_value]}%")
+                         when 'id'
+                           Task.where(:id => params[:search_value].to_i)
+                         when 'parent_subject'
+                           Task.joins(:parent).where('parents_tasks.subject like ?', "%#{params[:search_value]}%")
+                         when 'parent_id'
+                           Task.joins(:parent).where('parents_tasks.id = ?', params[:search_value].to_i)
+                         when 'category'
+                           categories = {
+                             "Bug修复" => :bug_fixing,
+                             "新增功能" => :new_feature,
+                             "支持" => :support
+                           }
+                           category = params[:search_value]
+                           matched_categories = []
+                           categories.each_pair do |k, v|
+                             if k.include? category
+                               matched_categories << v
+                             end
+                           end
+                           Task.where(:category => matched_categories)
+                         when 'priority'
+                           Task.where :priority => params[:search_value].to_i
+                         when 'project'
+                           Task.joins(:project).where('projects.name like ?', "%#{params[:search_value]}%")
+                       end
+
     @type = params[:type]
+
+
     if @type and @type == 'watching'
-      @tasks = current_user.watching_tasks.all
+      @tasks = current_user.watching_tasks.merge(search_condition).page params[:page]
     else
       @type = :assigned_to
-      @tasks = current_user.tasks.all
+      @tasks = current_user.tasks.merge(search_condition).page params[:page]
     end
     @nav_item_name = 'my-tasks'
+
+    @search_form = {
+      :path => my_tasks_path(@type),
+      :search_value => params[:search_value] || '',
+      :search_key => (params[:search_key]  || :subject).to_sym,
+      :key_options => {
+        :subject => '主题',
+        :id => 'ID',
+        :parent_subject => '父任务主题',
+        :parent_id => '父任务ID',
+        :category => '分类',
+        :priority => '优先级',
+        :project => '项目名称',
+      }
+    }.with_indifferent_access
   end
 
   def activities
-    @journals = current_user.task_activities.all
+    search_condition = case params[:search_key]
+                         when 'subject'
+                           TaskJournal.joins(:task).where('subject like ?', "%#{params[:search_value]}%")
+                         when 'project'
+                           TaskJournal.joins(:task => :project).where('projects.name like ?', "%#{params[:search_value]}%")
+                       end
+    @journals = current_user.task_activities.merge(search_condition).page params[:page]
     @type = :activities
     @nav_item_name = 'my-tasks'
+    @search_form = {
+      :path => my_activities_path,
+      :search_value => params[:search_value] || '',
+      :search_key => (params[:search_key]  || :subject).to_sym,
+      :key_options => {
+        :subject => '主题',
+        :project => '项目名称',
+      }
+    }.with_indifferent_access
   end
 
   # GET /people
   # GET /people.json
   def index
-    @people = Person.all
+
+    search_condition = case params[:search_key]
+                         when 'name'
+                           Person.where('name like ?', "%#{params[:search_value]}%")
+                         when 'id'
+                           Person.where(:id => params[:search_value].to_i)
+                         when 'email'
+                           Person.where('email like ?', "%#{params[:search_value]}%")
+                         when 'role'
+                           roles = {
+                             '管理员' => :admin,
+                             '部门经理' => :manager,
+                             '普通用户' => :normal
+                           }
+                           role = params[:search_value]
+                           matched_roles = []
+                           roles.each_pair do |k, v|
+                             if k.include? role
+                               matched_roles << v
+                             end
+                           end
+                           Person.where(:role => matched_roles)
+                         else
+                           Person.all
+                       end
+    @people = search_condition.page(params[:page])
+
+    @search_form = {
+      :path => people_path,
+      :search_value => params[:search_value] || '',
+      :search_key => (params[:search_key]  || :name).to_sym,
+      :key_options => {
+        :name => '用户名',
+        :id => 'ID',
+        :email => 'Email',
+        :role => '角色'
+      }
+    }.with_indifferent_access
   end
 
   # GET /people/1

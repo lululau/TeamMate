@@ -67,3 +67,5 @@ gem 'devise'
 
 gem 'redcarpet'
 gem 'coderay'
+
+gem 'kaminari-bootstrap', '~> 3.0.1'

@@ -2,6 +2,10 @@
 <div class="nav-tabs">
   <%= render :partial => "common/manage_module_tabs", :locals => {:tab_name => 'projects'} %>
 </div>
+<div class="row" style="padding-top: 40px">
+  <%= search_form_for @search_form %>
+</div>
+<hr/>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -39,6 +43,17 @@
   </tbody>
 </table>
 
+<div class="row">
+  <div class="col-lg-12">
+    <div class="pull-right">
+      <%= paginate @projects %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_project_path,
             :class => 'btn btn-primary' %>
+  </div>
+</div>

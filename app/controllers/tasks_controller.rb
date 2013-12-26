@@ -18,12 +18,58 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
+
     role = current_user.role
     unless role == 'admin' or @project.public or (@project.managers + @project.members).include? current_user
       redirect_to root_path, :alert => '访问被拒绝，您可能没有权限或未登录。'
       return
     end
-    @tasks = @project.tasks.all
+
+    search_condition = case params[:search_key]
+                         when 'subject'
+                           Task.where('subject like ?', "%#{params[:search_value]}%")
+                         when 'id'
+                           Task.where(:id => params[:search_value].to_i)
+                         when 'parent_subject'
+                           Task.joins(:parent).where('parents_tasks.subject like ?', "%#{params[:search_value]}%")
+                         when 'parent_id'
+                           Task.joins(:parent).where('parents_tasks.id = ?', params[:search_value].to_i)
+                         when 'category'
+                           categories = {
+                             "Bug修复" => :bug_fixing,
+                             "新增功能" => :new_feature,
+                             "支持" => :support
+                           }
+                           category = params[:search_value]
+                           matched_categories = []
+                           categories.each_pair do |k, v|
+                             if k.include? category
+                               matched_categories << v
+                             end
+                           end
+                           Task.where(:category => matched_categories)
+                         when 'priority'
+                           Task.where :priority => params[:search_value].to_i
+                         when 'assigned_to_user'
+                           Task.joins(:assigned_to_user).where('users.name like ?', "%#{params[:search_value]}%")
+                       end
+
+    @tasks = @project.tasks.merge(search_condition).page params[:page]
+
+    @search_form = {
+      :path => project_tasks_path(@project),
+      :search_value => params[:search_value] || '',
+      :search_key => (params[:search_key]  || :subject).to_sym,
+      :key_options => {
+        :subject => '主题',
+        :id => 'ID',
+        :parent_subject => '父任务主题',
+        :parent_id => '父任务ID',
+        :category => '分类',
+        :priority => '优先级',
+        :assigned_to_user => '指派给的用户',
+      }
+    }.with_indifferent_access
   end
 
   # GET /tasks/1

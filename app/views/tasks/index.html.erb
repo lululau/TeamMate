@@ -2,6 +2,11 @@
 <div class="nav-tabs">
   <%= render :partial => "common/project_module_tabs", :locals => {:tab_name => 'tasks'} %>
 </div>
+
+<div class="row" style="padding-top: 40px">
+  <%= search_form_for @search_form %>
+</div>
+<hr/>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -55,9 +60,21 @@
   </tbody>
 </table>
 
+<div class="row">
+  <div class="col-lg-12">
+    <div class="pull-right">
+      <%= paginate @tasks %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_project_task_path(@project),
             :class => 'btn btn-primary' %>
+  </div>
+</div>
 <% unless current_user.role == 'admin' or (@project.managers + @project.members).include? current_user  %>
 <%= render 'disable_buttons' %>
 <% end %>

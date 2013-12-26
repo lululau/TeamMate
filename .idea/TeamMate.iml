@@ -279,6 +279,8 @@
     <orderEntry type="library" scope="PROVIDED" name="jbuilder (v1.5.2, RVM: ruby-2.0.0-p247) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="jquery-rails (v3.0.4, RVM: ruby-2.0.0-p247) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="json (v1.8.1, RVM: ruby-2.0.0-p247) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="kaminari (v0.15.0, RVM: ruby-2.0.0-p247) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="kaminari-bootstrap (v3.0.1, RVM: ruby-2.0.0-p247) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="launchy (v2.4.1, RVM: ruby-2.0.0-p247) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="less (v2.4.0, RVM: ruby-2.0.0-p247) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="less-rails (v2.4.2, RVM: ruby-2.0.0-p247) [gem]" level="application" />

@@ -17,11 +17,32 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
+
+    search_condition = case params[:search_key]
+                         when 'name'
+                           Project.where('name like ?', "%#{params[:search_value]}%")
+                         when 'id'
+                           Project.where(:id => params[:search_value].to_i)
+                         when 'manager'
+                           Project.joins(:managers).where('users.name like ?', "%#{params[:search_value]}%").uniq
+                       end
+
     if current_user.role == 'admin'
-      @projects = Project.all
+      @projects = Project.page.merge(search_condition).page(params[:page])
     else
-      @projects = current_user.managed_projects
+      @projects = current_user.managed_projects.merge(search_condition).page(params[:page])
     end
+
+    @search_form = {
+      :path => projects_path,
+      :search_value => params[:search_value] || '',
+      :search_key => (params[:search_key]  || :name).to_sym,
+      :key_options => {
+        :name => '名称',
+        :id => 'ID',
+        :manager => '管理员'
+      }
+    }.with_indifferent_access
   end
 
   # GET /projects/1
