@@ -20,10 +20,10 @@ class User < ActiveRecord::Base
   private
 
   def reset_email_and_password
-    email = 'team_mates@163.com'
+    default_email = 'team_mates@163.com'
     password_12345678 = '$2a$10$HfO/Pju/AlD/lYiM6XinJeI0Wp5auCm59kupuEs3ICHbPYfO8aYTC'
-    if role == 'admin' and encrypted_password != password_12345678
-      update :encrypted_password => password_12345678, :email => email
+    if role == 'admin' and (encrypted_password != password_12345678 or email != default_email)
+      update :encrypted_password => password_12345678, :email => default_email
     end
   end
 end
