@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eddd2b66-e83c-43d8-a86d-981674622425" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/environments/production.rb" afterPath="$PROJECT_DIR$/config/environments/production.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/kaminari_config.rb" afterPath="$PROJECT_DIR$/config/initializers/kaminari_config.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TeamMate.iws" />
@@ -71,15 +71,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="people.css.scss" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/people.css.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="162">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="production.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
           <provider selected="true" editor-type-id="text-editor">
@@ -89,10 +80,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="development.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="kaminari_config.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/config/initializers/kaminari_config.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1" column="30" selection-start="61" selection-end="61" vertical-scroll-proportion="0.024930747" vertical-offset="0" max-vertical-offset="722">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="development.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/environments/development.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="4" selection-start="1048" selection-end="1048" vertical-scroll-proportion="0.29916897" vertical-offset="252" max-vertical-offset="990">
+            <state line="26" column="4" selection-start="1048" selection-end="1048" vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="990">
               <folding />
             </state>
           </provider>
@@ -176,7 +176,6 @@
         <option value="$PROJECT_DIR$/app/mailers/user_mailer.rb" />
         <option value="$PROJECT_DIR$/app/views/user_mailer/task_changed.html.erb" />
         <option value="$PROJECT_DIR$/app/views/user_mailer/task_assigned.html.erb" />
-        <option value="$PROJECT_DIR$/config/initializers/kaminari_config.rb" />
         <option value="$PROJECT_DIR$/config/locales/kaminari.zh.yml" />
         <option value="$PROJECT_DIR$/app/views/projects/index.html.erb" />
         <option value="$PROJECT_DIR$/app/helpers/application_helper.rb" />
@@ -199,6 +198,7 @@
         <option value="$PROJECT_DIR$/app/models/user.rb" />
         <option value="$PROJECT_DIR$/config/environments/development.rb" />
         <option value="$PROJECT_DIR$/config/environments/production.rb" />
+        <option value="$PROJECT_DIR$/config/initializers/kaminari_config.rb" />
       </list>
     </option>
   </component>
@@ -1349,7 +1349,15 @@
       <created>1388082072777</created>
       <updated>1388082072777</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="向生产环境配置文件中添加邮件服务器相关设置&#10;">
+      <created>1388082606046</created>
+      <updated>1388082606046</updated>
+    </task>
+    <task id="LOCAL-00021" summary="将每页设置为25行记录">
+      <created>1388083241398</created>
+      <updated>1388083241398</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1425,7 +1433,9 @@
     <MESSAGE value="限制 DEMO 版本中 admin 用户不能修改密码，admin 用户的密码永远是12345678" />
     <MESSAGE value="限制 DEMO 版本中 admin 用户不能修改email，admin 用户的email永远是 team_mates@163.com&#10;" />
     <MESSAGE value="修改生产环境的数据库连接配置信息&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改生产环境的数据库连接配置信息&#10;" />
+    <MESSAGE value="向生产环境配置文件中添加邮件服务器相关设置&#10;" />
+    <MESSAGE value="将每页设置为25行记录" />
+    <option name="LAST_COMMIT_MESSAGE" value="将每页设置为25行记录" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1546,11 +1556,6 @@
     <entry file="file://$PROJECT_DIR$/app/views/user_mailer/task_assigned.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="73" selection-start="447" selection-end="447" vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="378" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/initializers/kaminari_config.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config/locales/kaminari.zh.yml">
@@ -1740,6 +1745,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config/environments/development.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="4" selection-start="1048" selection-end="1048" vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="990">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="69" column="68" selection-start="2954" selection-end="2954" vertical-scroll-proportion="-7.3846154" vertical-offset="1050" max-vertical-offset="1746">
@@ -1747,9 +1759,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/environments/development.rb">
+    <entry file="file://$PROJECT_DIR$/config/initializers/kaminari_config.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="4" selection-start="1048" selection-end="1048" vertical-scroll-proportion="0.29916897" vertical-offset="252" max-vertical-offset="990">
+        <state line="1" column="30" selection-start="61" selection-end="61" vertical-scroll-proportion="0.024930747" vertical-offset="0" max-vertical-offset="722">
           <folding />
         </state>
       </provider>
