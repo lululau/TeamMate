@@ -16,7 +16,8 @@
     <data-source source="LOCAL" name="Rails TeamMate: production" uuid="376d18bd-3cbb-441d-af43-2ba2edf99ecd">
       <driver-ref>sqlite.xerial</driver-ref>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/production.sqlite3</jdbc-url>
+      <jdbc-url>jdbc:mysql://127.0.0.1/teammate</jdbc-url>
+      <user-name>root</user-name>
       <libraries />
     </data-source>
   </component>
